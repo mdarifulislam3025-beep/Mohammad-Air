@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel RFQ Marketplace</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Travel RFQ Marketplace</h1>
+        <p>User Portal for Flight, Visa, Packages & Transport Requests</p>
+      </div>
+      <button class="btn primary" data-auth-trigger>Register / Login</button>
+    </header>
+
+    <main>
+      <section class="card intro">
+        <h2>Available Services</h2>
+        <div class="chips">
+          <button class="chip" data-auth-trigger>Flight RFQ</button>
+          <button class="chip" data-auth-trigger>Visa Processing</button>
+          <button class="chip" data-auth-trigger>Tour Packages</button>
+          <button class="chip" data-auth-trigger>Hajj/Umrah Packages</button>
+          <button class="chip" data-auth-trigger>Work Visa</button>
+          <button class="chip" data-auth-trigger>Bus/Train Requests</button>
+        </div>
+        <p class="muted">
+          Any action button opens Register/Login first, as required.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h3>Flight RFQ</h3>
+          <form id="flightForm" class="form">
+            <label>Trip Type
+              <select name="tripType" required>
+                <option value="">Select</option>
+                <option>One-way</option>
+                <option>Round-trip</option>
+                <option>Multi-city</option>
+              </select>
+            </label>
+            <label>From <input name="from" required /></label>
+            <label>To <input name="to" required /></label>
+            <label>Departure Date <input type="date" name="departure" required /></label>
+            <label>Return Date <input type="date" name="returnDate" /></label>
+            <label>Passengers <input type="number" min="1" name="pax" required /></label>
+            <label>Cabin Class
+              <select name="cabin" required>
+                <option>Economy</option>
+                <option>Premium Economy</option>
+                <option>Business</option>
+                <option>First</option>
+              </select>
+            </label>
+            <button class="btn">Submit Flight Request</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h3>Visa Processing</h3>
+          <form id="visaForm" class="form">
+            <label>Destination Country <input name="country" required /></label>
+            <label>Travel Date <input type="date" name="travelDate" required /></label>
+            <label>Document Upload <input type="file" name="docs" multiple /></label>
+            <button class="btn">Submit Visa Request</button>
+          </form>
+          <small>Status flow: Pending → Documents Required → Processing → Completed → Approved/Reject</small>
+        </article>
+
+        <article class="card">
+          <h3>Hajj / Umrah Packages</h3>
+          <form id="hajjForm" class="form">
+            <label>Package Type
+              <select name="packageType" required>
+                <option>Hajj</option>
+                <option>Umrah</option>
+              </select>
+            </label>
+            <label>Travel Month <input type="month" name="month" required /></label>
+            <button class="btn">Request Package</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h3>Work Visa</h3>
+          <form id="workVisaForm" class="form">
+            <label>Destination Country <input name="country" required /></label>
+            <label>Profession <input name="profession" required /></label>
+            <label>Upload CV <input type="file" name="cv" required /></label>
+            <button class="btn">Submit Work Visa Request</button>
+          </form>
+          <small>Pipeline: Lead → Submitted → Processing → Approved/Reject → Completed</small>
+        </article>
+
+        <article class="card">
+          <h3>Bus / Train Request</h3>
+          <form id="transportForm" class="form">
+            <label>Mode
+              <select name="mode" required>
+                <option>Bus</option>
+                <option>Train</option>
+              </select>
+            </label>
+            <label>From <input name="from" required /></label>
+            <label>To <input name="to" required /></label>
+            <label>Travel Date <input type="date" name="date" required /></label>
+            <label>Passengers <input type="number" min="1" name="pax" required /></label>
+            <button class="btn">Submit Transport Request</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h3>My Requests</h3>
+          <ul id="requestList" class="requests"></ul>
+        </article>
+      </section>
+    </main>
+
+    <dialog id="authDialog">
+      <div class="modal-header">
+        <h3 id="authTitle">Register</h3>
+        <button class="icon" id="closeAuth">×</button>
+      </div>
+      <div class="tabbar">
+        <button class="tab active" data-tab="register">Register</button>
+        <button class="tab" data-tab="login">Login</button>
+      </div>
+
+      <form id="registerForm" class="form auth-form">
+        <label>Email Address <input type="email" name="email" required /></label>
+        <label>Password <input type="password" minlength="6" name="password" required /></label>
+        <button class="btn primary">Register</button>
+      </form>
+
+      <form id="otpForm" class="form auth-form hidden">
+        <label>OTP Verification <input type="text" maxlength="6" name="otp" required /></label>
+        <button class="btn primary">Verify OTP</button>
+      </form>
+
+      <form id="loginForm" class="form auth-form hidden">
+        <label>Registered Email Address <input type="email" name="email" required /></label>
+        <label>Password <input type="password" name="password" required /></label>
+        <button class="btn primary">Login</button>
+      </form>
+
+      <p id="authMessage" class="message"></p>
+    </dialog>
+
+    <template id="reqTemplate">
+      <li>
+        <strong class="req-title"></strong>
+        <span class="req-meta"></span>
+      </li>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
